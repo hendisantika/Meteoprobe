@@ -1,5 +1,17 @@
 *.class
 
+#Custom
+.metadata
+.recommenders
+target
+.settings
+.classpath
+.project
+*.db
+logs
+database
+
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
