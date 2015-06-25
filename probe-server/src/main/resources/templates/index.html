@@ -1,0 +1,63 @@
+<html>
+<head>
+<script type='text/javascript' src='https://www.google.com/jsapi'></script>
+<script type='text/javascript'
+	src='http://code.jquery.com/jquery-2.1.4.min.js'></script><script type='text/javascript'>
+		google.load('visualization', '1', {
+			'packages' : [ 'geochart' ]
+		});
+		google.setOnLoadCallback(drawMarkersMap);
+
+		function drawMarkersMap() {
+			
+			$.getJSON('./datas', function(data) {
+				
+				
+//				var hardCoded = google.visualization
+//					.arrayToDataTable([
+//							[ 'CountryX', 'CountryY', 'Population',
+//									'Area Percentage' ],
+//							[ 46.0923305697386922474834136664867401123046875, 4.6916140918104378698672007885761559009552001953125, 26, 50 ], ]);
+				
+				var pointMap = new google.visualization.DataTable();
+				pointMap.addColumn('number', 'CountryX');
+				pointMap.addColumn('number', 'CountryY');
+				pointMap.addColumn('number', 'Temperature');
+
+				// now we need to build the map data, loop over each result
+				var points = [];   
+				$.each(data, function(i, v) {
+						points.push([v.coordinate.latitude,v.coordinate.longitude, v.temperature]);
+				});
+				
+				pointMap.addRows(points);
+				
+				var options = {
+					sizeAxis : {
+						minValue : 0,
+						maxValue : 100
+					},
+					region : 'FR',
+					displayMode : 'markers',
+					markerOpacity : '0.7',
+					colorAxis : {
+						colors : [ '#BAD0FF', '#FF5500' ]
+					}
+				// orange to blue
+				};
+
+				var chart = new google.visualization.GeoChart(document
+						.getElementById('chart_div'));
+				chart.draw(pointMap, options);
+			});
+		};
+		
+		setTimeout(function(){
+			drawMarkersMap();  
+			}, 10000);
+	</script>
+  </head>
+  <body>
+    <div id="chart_div" style="width: 600px; height: 500px;"></div>
+  </body>
+</html>
