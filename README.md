@@ -5,3 +5,8 @@ The client send meteo data via MQ
 The serveur process, persist the data and display it on an UI.
 
 ![alt tag](https://raw.githubusercontent.com/aboivin/Meteoprobe/master/meteo-probe.jpg)
+
+Todo
+- Add unit test
+- Add circuit breaker Hystrix
+- Service Discovery Eureka
